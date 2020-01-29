@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:date_picker_timeline/date_picker_timeline.dart';
-import 'package:fitme_diets/models/intolerances.dart';
 import 'package:fitme_diets/models/responseParse.dart';
+import 'package:fitme_diets/models/user.dart';
 import 'package:fitme_diets/utilities/api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +35,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //var _userCurrent = ModalRoute.of(context).settings.arguments;
+    //print(_userCurrent);
     PageController controller = PageController(initialPage: images - 1);
     controller.addListener(() {
       setState(() {

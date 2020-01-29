@@ -951,7 +951,7 @@ class _RegistrationState extends State<Registration>
                 });
               }
             } else {
-              print(curUser.toString());
+              //var _userData = curUser.toJson();
               Navigator.popAndPushNamed(context, '/homepage');
             }
           },

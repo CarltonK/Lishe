@@ -7,6 +7,14 @@ class Intolerances {
       {this.intolerantItemName,
       this.intolerantItemImage,
       this.intolerantItemSelected});
+
+  Map<String, dynamic> toJson() => {
+    "intolerances": intolerantItemName,
+  };
+
+  factory Intolerances.fromJson(Map<String, dynamic> json) => Intolerances(
+    intolerantItemName: json["intolerances"]
+  );
 }
 
 Intolerances egg = Intolerances(
