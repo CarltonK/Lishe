@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 35),
@@ -95,8 +96,32 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: 50,
+              height: 40,
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Welcome back',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                  letterSpacing: 1.0,
+                  fontWeight: FontWeight.bold
+                ),),
+            ),
+            SizedBox(height: 5,),
+              Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Here are Today\'s meals',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  letterSpacing: 1.0,
+                  fontWeight: FontWeight.w300
+                ),),
+            ),
+            SizedBox(height: 10,),
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height,
@@ -124,11 +149,12 @@ class _HomePageState extends State<HomePage> {
                               aspectRatio: widgetAspectRatio,
                               child:
                                   LayoutBuilder(builder: (context, contraints) {
+                                    
                                 var width = contraints.maxWidth;
                                 var height = contraints.maxHeight;
 
                                 var safeWidth = width - 2 * padding;
-                                var safeHeight = height - 2 * padding;
+                                var safeHeight = height - 3 * padding;
 
                                 var heightOfPrimaryCard = safeHeight;
                                 var widthOfPrimaryCard =

@@ -1,20 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fitme_diets/models/responseParse.dart';
 
 class RecipeInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
     final Map _data = ModalRoute.of(context).settings.arguments;
-    print(_data);
     var people = _data['servings'];
     var time = _data['readyInMinutes'];
     var title = _data['title'];
     int calories = _data['nutrition'][0]['amount'].toInt();
     String image = _data['image'];
     List<dynamic> steps = _data['analyzedInstructions'][0]['steps'];
+    bool isLiked = false;
     
 
     return Scaffold(
@@ -26,6 +25,16 @@ class RecipeInfo extends StatelessWidget {
           style: TextStyle(
             color: Colors.white
           ),),
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                
+              },
+              icon: Icon(
+                isLiked ? Icons.favorite : Icons.favorite_border,
+                color: Colors.white,),
+            )
+          ],
       ),
       backgroundColor: Colors.indigo[900],
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -72,7 +81,7 @@ class RecipeInfo extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
-                              Icons.timer,
+                              Icons.person,
                               color: Colors.white,
                             ),
                             SizedBox(width: 10,),
@@ -89,7 +98,7 @@ class RecipeInfo extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(
-                              Icons.timer,
+                              Icons.receipt,
                               color: Colors.white,
                             ),
                             SizedBox(width: 10,),
@@ -131,7 +140,20 @@ class RecipeInfo extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 10,),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 20,
+                      top: 20
+                    ),
+                    child: Text(
+                      'Wine Pairing',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: .5,
+                        fontSize: 22
+                      ),),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Text(
@@ -140,7 +162,8 @@ class RecipeInfo extends StatelessWidget {
                         color: Colors.white,
                         fontSize: 16,
                         wordSpacing: 1.0,
-                        letterSpacing: .5
+                        letterSpacing: .5,
+                        fontWeight: FontWeight.w400
                       ),
                     ),
                   )
@@ -174,7 +197,7 @@ class RecipeInfo extends StatelessWidget {
                           backgroundColor: Colors.white
                         ),
                       ),
-                      subtitle: Text(
+                      title: Text(
                         steps[index]['step'],
                         style: TextStyle(
                           color: Colors.white,
