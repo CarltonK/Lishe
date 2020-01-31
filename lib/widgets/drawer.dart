@@ -7,8 +7,31 @@ class AppDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           Container(
-            height: 200,
+            height: 250,
             child: _createHeader()),
+            _createDrawerItem(
+              icon: Icons.home,
+              text: 'Home',
+              onTap: () => print('Take me home')
+            ),
+            _createDrawerItem(
+              icon: Icons.fastfood,
+              text: 'Meal plans',
+              onTap: () => print('Meal plan clicked')
+            ),
+          ListTile(
+            title: Text(
+              'Version',
+              style: TextStyle(
+                color: Colors.indigo[900]
+              ),),
+            subtitle: Text(
+              '1.0.0',
+              style: TextStyle(
+                color: Colors.indigo[900]
+              ),),
+            onTap: () => print('This is the app version'),
+          )
         ],
       ),
     );
@@ -49,10 +72,15 @@ Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap})
   return ListTile(
     title: Row(
       children: <Widget>[
-        Icon(icon,),
+        Icon(icon,color: Colors.indigo[900],),
         Padding(
           padding: EdgeInsets.only(left: 8.0),
-          child: Text(text),
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.indigo[900],
+              fontWeight: FontWeight.w500
+            ),),
         )
       ],
     ),
