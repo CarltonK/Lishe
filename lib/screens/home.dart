@@ -1,9 +1,8 @@
 import 'dart:math';
-
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:fitme_diets/models/responseParse.dart';
-import 'package:fitme_diets/models/user.dart';
 import 'package:fitme_diets/utilities/api.dart';
+import 'package:fitme_diets/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -46,37 +45,30 @@ class _HomePageState extends State<HomePage> {
     });
 
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.indigo[900],
+        elevation: 0.0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              print('Search Icon Pressed');
+            },
+          )
+        ],
+      ),
+      drawer: AppDrawer(),
       backgroundColor: Colors.indigo[900],
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 35),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      print('Menu Icon Pressed');
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      print('Search Icon Pressed');
-                    },
-                  )
-                ],
-              ),
+            SizedBox(
+              height: 20,
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -105,25 +97,29 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 'Welcome back',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40,
-                  letterSpacing: 1.0,
-                  fontWeight: FontWeight.bold
-                ),),
+                    color: Colors.white,
+                    fontSize: 40,
+                    letterSpacing: 1.0,
+                    fontWeight: FontWeight.bold),
+              ),
             ),
-            SizedBox(height: 5,),
-              Padding(
+            SizedBox(
+              height: 5,
+            ),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Here are Today\'s meals',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  letterSpacing: 1.0,
-                  fontWeight: FontWeight.w300
-                ),),
+                    color: Colors.white,
+                    fontSize: 30,
+                    letterSpacing: 1.0,
+                    fontWeight: FontWeight.w300),
+              ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             Expanded(
               child: Container(
                 height: MediaQuery.of(context).size.height,
@@ -139,11 +135,8 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           var data = snapshot.data.results[index].toJson();
                           //print(data);
-                          Navigator.pushNamed(
-                            context,
-                            '/viewinfo',
-                            arguments: data
-                          );
+                          Navigator.pushNamed(context, '/viewinfo',
+                              arguments: data);
                         },
                         child: Stack(
                           children: <Widget>[
@@ -151,7 +144,6 @@ class _HomePageState extends State<HomePage> {
                               aspectRatio: widgetAspectRatio,
                               child:
                                   LayoutBuilder(builder: (context, contraints) {
-                                    
                                 var width = contraints.maxWidth;
                                 var height = contraints.maxHeight;
 
@@ -204,12 +196,14 @@ class _HomePageState extends State<HomePage> {
                                             fit: StackFit.expand,
                                             children: <Widget>[
                                               Hero(
-                                                tag: snapshot.data.results[i].image,
+                                                tag: snapshot
+                                                    .data.results[i].image,
                                                 child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(16),
+                                                  borderRadius:
+                                                      BorderRadius.circular(16),
                                                   child: Image.network(
-                                                      snapshot
-                                                          .data.results[i].image,
+                                                      snapshot.data.results[i]
+                                                          .image,
                                                       fit: BoxFit.cover),
                                                 ),
                                               ),

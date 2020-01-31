@@ -178,7 +178,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               color: Colors.white,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/register');
+                  Navigator.pushNamed(context, '/homepage');
                 },
                 child: Center(
                   child: Padding(
