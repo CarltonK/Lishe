@@ -7,7 +7,8 @@
 .atom/
 .buildlog/
 .history
-.svn/
+.svn/git
+.android/app/google-services.json
 
 # IntelliJ related
 *.iml

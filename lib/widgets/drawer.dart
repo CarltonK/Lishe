@@ -17,7 +17,7 @@ class AppDrawer extends StatelessWidget {
             _createDrawerItem(
               icon: Icons.fastfood,
               text: 'Meal plans',
-              onTap: () => print('Meal plan clicked')
+              onTap: () => Navigator.of(context).pushNamed('/mealplan')
             ),
           ListTile(
             title: Text(
@@ -57,9 +57,9 @@ Widget _createHeader() {
           child: Text(
             'Lishe',
             style: TextStyle(
-              fontSize: 22,
+              fontSize: 28,
               color: Colors.white,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w900,
               letterSpacing: 0.5
             ),),
         )
@@ -74,7 +74,7 @@ Widget _createDrawerItem({IconData icon, String text, GestureTapCallback onTap})
       children: <Widget>[
         Icon(icon,color: Colors.indigo[900],),
         Padding(
-          padding: EdgeInsets.only(left: 8.0),
+          padding: EdgeInsets.only(left: 10.0),
           child: Text(
             text,
             style: TextStyle(

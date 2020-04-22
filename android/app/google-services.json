@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "543355923361",
+    "firebase_url": "https://lishe-78ed5.firebaseio.com",
+    "project_id": "lishe-78ed5",
+    "storage_bucket": "lishe-78ed5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:543355923361:android:e1fe58341ef525e0b3b9e0",
+        "android_client_info": {
+          "package_name": "com.carlton.fitme_diets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "543355923361-okn6ub9m3hkjh96k5sciglo3dtga7su9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArb-fy4bIeqg0Rh1-L9R8RZObaFMUuQuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "543355923361-okn6ub9m3hkjh96k5sciglo3dtga7su9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

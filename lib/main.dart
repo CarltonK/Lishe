@@ -1,7 +1,3 @@
-import 'package:fitme_diets/screens/home.dart';
-import 'package:fitme_diets/screens/no_connection.dart';
-import 'package:fitme_diets/screens/onboarding_screen.dart';
-import 'package:fitme_diets/screens/recipe_info.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -12,14 +8,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/nonet': (context) => NoConnection(),
-        '/homepage': (context) => HomePage(),
-        '/viewinfo': (context) => RecipeInfo()
-
       },
       title: 'Lishe',
       debugShowCheckedModeBanner: false,
-      home: OnBoardingScreen()
     );
   }
 }
