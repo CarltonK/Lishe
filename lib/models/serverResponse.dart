@@ -49,8 +49,8 @@ class Result {
   int preparationMinutes;
   int cookingMinutes;
   int aggregateLikes;
-  int spoonacularScore;
-  int healthScore;
+  double spoonacularScore;
+  double healthScore;
   String creditsText;
   String sourceName;
   double pricePerServing;
@@ -272,7 +272,7 @@ class Ent {
 }
 
 class Length {
-  int number;
+  num number;
   String unit;
 
   Length({
@@ -348,7 +348,7 @@ class ProductMatch {
   String price;
   String imageUrl;
   double averageRating;
-  int ratingCount;
+  double ratingCount;
   double score;
   String link;
 

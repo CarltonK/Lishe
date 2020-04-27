@@ -1,60 +1,56 @@
+import 'package:fitme_diets/api/api.dart';
+import 'package:fitme_diets/models/dietsModel.dart';
+import 'package:fitme_diets/models/serverResponse.dart';
+import 'package:fitme_diets/utilities/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool isLiked = false;
-  double _scale = 1;
+  TabController _controller;
+  PageController _pageController;
+
+  Widget _singleTabWidget(DietModel model) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Text(
+        '${model.titleDiet}',
+      ),
+    );
+  }
 
   Widget _listCategories() {
     return Container(
-        height: 30,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.symmetric(vertical: 20),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
+            Text(
+              'Diets',
+              style: titleStyle,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text('Cake'),
+            TabBar(
+              tabs: diets.map((diet) => _singleTabWidget(diet)).toList(),
+              controller: _controller,
+              isScrollable: true,
+              labelColor: Colors.blueAccent,
+              unselectedLabelColor: Colors.grey.withOpacity(0.6),
+              labelPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              indicatorPadding: EdgeInsets.symmetric(horizontal: 10),
             )
           ],
         ));
   }
 
-  Widget _singleRecipeWidget() {
-    return Transform.scale(
-      scale: _scale,
-      child: Stack(
+  Widget _singleRecipeWidget(Result result) {
+      return Stack(
         children: [
           Container(
             margin: EdgeInsets.symmetric(horizontal: 20),
@@ -86,8 +82,7 @@ class _HomeState extends State<Home> {
                             });
                           },
                           child: isLiked
-                              ? Icon(Icons.favorite,
-                                  size: 16, color: Colors.red)
+                              ? Icon(Icons.favorite, size: 16, color: Colors.red)
                               : Icon(Icons.favorite_border,
                                   size: 16, color: Colors.black54),
                         ),
@@ -97,7 +92,7 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
                     child: Text(
-                      'Black Forest\nCake',
+                      '${result.title}',
                       style: TextStyle(
                           color: Colors.white,
                           letterSpacing: 0.5,
@@ -110,19 +105,49 @@ class _HomeState extends State<Home> {
             ),
           ),
           Positioned(
-            bottom: 10,
+            bottom: 5,
             child: Padding(
               padding: const EdgeInsets.only(right: 30),
-              child: Image.asset(
-                'assets/food_two.png',
-                height: 160,
+              child: GestureDetector(
+                onTap: () => _showTemporary(result.summary),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(150),
+                  child: Image.network(
+                    '${result.image}',
+                    height: 160,
+                  ),
+                ),
               ),
             ),
           )
         ],
-      ),
     );
   }
+
+  Future _showTemporary(String summary) {
+    return showCupertinoModalPopup(
+        context: context,
+        builder: (context) {
+          return CupertinoActionSheet(
+            message: Text('$summary'),
+          );
+        },);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = new TabController(initialIndex: 0, length: 6, vsync: this);
+    _pageController = new PageController(viewportFraction: 0.7);
+  }
+
+  API _api = new API();
+  Future<ServerResponse> _dataResponse() async {
+    var response = await _api.getRecipe();
+    print(response);
+    return response;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -139,17 +164,17 @@ class _HomeState extends State<Home> {
             children: [
               Text(
                 'Hey, Jon',
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 15),
+                style: subtitleStyle,
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 'What do you want to\ncook today?',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: titleStyle,
               ),
               SizedBox(
-                height: 30,
+                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.only(right: 50),
@@ -160,26 +185,30 @@ class _HomeState extends State<Home> {
                       border: OutlineInputBorder()),
                 ),
               ),
-              SizedBox(
-                height: 30,
-              ),
               _listCategories(),
-              SizedBox(
-                height: 20,
-              ),
               Text(
                 'Popular Recipes',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: titleStyle,
               ),
               SizedBox(
                 height: 20,
               ),
               Container(
                 height: 250,
-                child: PageView(
-                  controller: PageController(viewportFraction: 0.7),
-                  children: [_singleRecipeWidget(), _singleRecipeWidget()],
-                ),
+                child: FutureBuilder<ServerResponse>(
+                  future: _dataResponse(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return PageView(
+                          controller: _pageController,
+                          children: snapshot.data.results.map((map) => _singleRecipeWidget(map)).toList(),
+                        );
+                      }
+                      return SpinKitDoubleBounce(
+                        size: 100,
+                        color: Colors.blueAccent,
+                      );
+                    },),
               )
             ],
           ),
@@ -188,3 +217,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
