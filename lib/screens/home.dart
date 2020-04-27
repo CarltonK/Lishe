@@ -109,7 +109,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             child: Padding(
               padding: const EdgeInsets.only(right: 30),
               child: GestureDetector(
-                onTap: () => _showTemporary(result.summary),
+                onTap: () => Navigator.of(context).pushNamed('/detail'),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(150),
                   child: Image.network(
@@ -124,15 +124,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  Future _showTemporary(String summary) {
-    return showCupertinoModalPopup(
-        context: context,
-        builder: (context) {
-          return CupertinoActionSheet(
-            message: Text('$summary'),
-          );
-        },);
-  }
 
   @override
   void initState() {
