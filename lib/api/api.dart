@@ -15,8 +15,7 @@ class API {
       var convertedResponse = serverResponseFromJson(myResponse);
       print(convertedResponse.runtimeType);
       return convertedResponse;
-    }
-    else {
+    } else {
       return null;
     }
   }
