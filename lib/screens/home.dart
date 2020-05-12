@@ -109,7 +109,8 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           child: Padding(
             padding: const EdgeInsets.only(right: 30),
             child: GestureDetector(
-              onTap: () => Navigator.of(context).pushNamed('/detail'),
+              onTap: () =>
+                  Navigator.of(context).pushNamed('/detail', arguments: result),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(150),
                 child: Image.network(
