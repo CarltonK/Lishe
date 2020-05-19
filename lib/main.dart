@@ -1,4 +1,6 @@
-import 'package:fitme_diets/screens/base.dart';
+import 'package:fitme_diets/authentication/login.dart';
+import 'package:fitme_diets/authentication/registration.dart';
+//import 'package:fitme_diets/screens/base.dart';
 import 'package:fitme_diets/screens/recipeDetail.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/detail': (context) => RecipeDetail(),
+        //Authentication Screens
+        '/registration': (context) => Registration(),
       },
       title: 'Lishe',
       debugShowCheckedModeBanner: false,
-      home: Base(),
+      home: Login(),
     );
   }
 }

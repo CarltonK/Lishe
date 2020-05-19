@@ -30,6 +30,7 @@ dependencies:
   bottom_navy_bar: ^5.4.0
   google_fonts: any
   html: ^0.14.0+3
+  cloud_firestore: 
 
 dev_dependencies:
   flutter_test:

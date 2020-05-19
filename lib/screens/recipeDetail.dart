@@ -17,11 +17,7 @@ class RecipeDetail extends StatelessWidget {
           ),
         ],
       ),
-      title: Text(
-        step.step,
-        style: GoogleFonts.muli(
-          textStyle: TextStyle()
-        )),
+      title: Text(step.step, style: GoogleFonts.muli(textStyle: TextStyle())),
     );
   }
 
@@ -58,7 +54,8 @@ class RecipeDetail extends StatelessWidget {
                 child: RichText(
                     text: TextSpan(style: TextStyle(fontSize: 30), children: [
                   TextSpan(
-                      text: result.title, style: TextStyle(color: Colors.black45)),
+                      text: result.title,
+                      style: TextStyle(color: Colors.black45)),
                 ])),
               ),
               SizedBox(
@@ -155,7 +152,9 @@ class RecipeDetail extends StatelessWidget {
                         ),
                         Expanded(
                             child: ListView(
-                          children: result.analyzedInstructions[0].steps.map((step) => singledirection(step)).toList(),
+                          children: result.analyzedInstructions[0].steps
+                              .map((step) => singledirection(step))
+                              .toList(),
                         ))
                       ]),
                 ),
@@ -167,10 +166,13 @@ class RecipeDetail extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: result.winePairing.productMatches.map((wine) {
-                    return Container(child: Column(
+                    return Container(
+                        child: Column(
                       children: [
                         Text(wine.description),
-                        Image(image: NetworkImage(wine.imageUrl),)
+                        Image(
+                          image: NetworkImage(wine.imageUrl),
+                        )
                       ],
                     ));
                   }).toList(),
