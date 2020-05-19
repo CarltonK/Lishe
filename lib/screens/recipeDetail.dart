@@ -27,7 +27,7 @@ class RecipeDetail extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[200],
+        backgroundColor: Colors.red[200],
         elevation: 0,
         actions: <Widget>[
           IconButton(
@@ -41,7 +41,7 @@ class RecipeDetail extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.blueGrey[50], Colors.blueGrey[50]],
+                colors: [Colors.white, Colors.red[300]],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
@@ -159,25 +159,25 @@ class RecipeDetail extends StatelessWidget {
                       ]),
                 ),
               ),
-              Container(
-                height: 400,
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: result.winePairing.productMatches.map((wine) {
-                    return Container(
-                        child: Column(
-                      children: [
-                        Text(wine.description),
-                        Image(
-                          image: NetworkImage(wine.imageUrl),
-                        )
-                      ],
-                    ));
-                  }).toList(),
-                ),
-              )
+              // Container(
+              //   height: 400,
+              //   width: MediaQuery.of(context).size.width,
+              //   padding: EdgeInsets.all(20),
+              //   child: Column(
+              //     crossAxisAlignment: CrossAxisAlignment.start,
+              //     children: result.winePairing.productMatches.map((wine) {
+              //       return Container(
+              //           child: Column(
+              //         children: [
+              //           Text(wine.description),
+              //           Image(
+              //             image: NetworkImage(wine.imageUrl),
+              //           )
+              //         ],
+              //       ));
+              //     }).toList(),
+              //   ),
+              // )
             ],
           ),
         ),
