@@ -1,4 +1,5 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:fitme_diets/screens/UserProfile.dart';
 import 'package:fitme_diets/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,10 +23,7 @@ class _BaseState extends State<Base> {
       height: 300,
       color: Colors.yellow,
     ),
-    Container(
-      height: 300,
-      color: Colors.green,
-    )
+    UserProfile()
   ];
 
   @override

@@ -50,78 +50,71 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   Widget _singleRecipeWidget(Result result) {
-    return Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          height: 250,
-          color: Colors.white,
-          child: Container(
-            height: 250,
-            margin: EdgeInsets.only(left: 10),
-            decoration: BoxDecoration(
-                color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(16)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.blueAccent[100],
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              topRight: Radius.circular(16))),
-                      padding: EdgeInsets.all(12),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isLiked = !isLiked;
-                          });
-                        },
-                        child: isLiked
-                            ? Icon(Icons.favorite, size: 16, color: Colors.red)
-                            : Icon(Icons.favorite_border,
-                                size: 16, color: Colors.black54),
-                      ),
-                    )
-                  ],
+    return Container(
+      height: 300,
+      margin: EdgeInsets.only(left: 20),
+      decoration: BoxDecoration(
+          color: Colors.blueAccent, borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.blueAccent[100],
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        topRight: Radius.circular(16))),
+                padding: EdgeInsets.all(12),
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isLiked = !isLiked;
+                    });
+                  },
+                  child: isLiked
+                      ? Icon(Icons.favorite, size: 16, color: Colors.red)
+                      : Icon(Icons.favorite_border,
+                          size: 16, color: Colors.black54),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15),
-                  child: Text(
-                    '${result.title}',
-                    style: TextStyle(
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16),
-                  ),
-                ),
-              ],
+              )
+            ],
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(
+              '${result.title}',
+              style: TextStyle(
+                  color: Colors.white,
+                  letterSpacing: 0.5,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16),
             ),
           ),
-        ),
-        Positioned(
-          bottom: 5,
-          child: Padding(
-            padding: const EdgeInsets.only(right: 30),
+          SizedBox(
+            height: 5,
+          ),
+          Expanded(
             child: GestureDetector(
               onTap: () =>
                   Navigator.of(context).pushNamed('/detail', arguments: result),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(150),
+                borderRadius: BorderRadius.circular(16),
                 child: Image.network(
                   '${result.image}',
-                  height: 160,
+                  fit: BoxFit.fitHeight,
                 ),
               ),
             ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 
@@ -129,7 +122,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = new TabController(initialIndex: 0, length: 6, vsync: this);
-    _pageController = new PageController(viewportFraction: 0.7);
+    _pageController = new PageController(viewportFraction: 0.75);
   }
 
   API _api = new API();
@@ -184,7 +177,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                 height: 20,
               ),
               Container(
-                height: 250,
+                height: 300,
                 child: FutureBuilder<ServerResponse>(
                   future: _dataResponse(),
                   builder: (context, snapshot) {

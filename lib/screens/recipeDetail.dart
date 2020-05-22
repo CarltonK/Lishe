@@ -13,7 +13,7 @@ class RecipeDetail extends StatelessWidget {
         children: <Widget>[
           CircleAvatar(
             radius: 3,
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.red,
           ),
         ],
       ),
@@ -27,7 +27,7 @@ class RecipeDetail extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red[200],
+        backgroundColor: Colors.red,
         elevation: 0,
         actions: <Widget>[
           IconButton(
@@ -39,11 +39,7 @@ class RecipeDetail extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.only(top: 20),
         width: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.white, Colors.red[300]],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter)),
+        decoration: BoxDecoration(color: Colors.red),
         child: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
@@ -55,7 +51,7 @@ class RecipeDetail extends StatelessWidget {
                     text: TextSpan(style: TextStyle(fontSize: 30), children: [
                   TextSpan(
                       text: result.title,
-                      style: TextStyle(color: Colors.black45)),
+                      style: TextStyle(color: Colors.white)),
                 ])),
               ),
               SizedBox(
@@ -73,14 +69,14 @@ class RecipeDetail extends StatelessWidget {
                                 children: <Widget>[
                                   Icon(
                                     Icons.timer,
-                                    color: Colors.orange,
+                                    color: Colors.white,
                                   ),
                                   SizedBox(
                                     width: 20,
                                   ),
                                   Text(
                                     '${result.cookingMinutes} Minutes',
-                                    style: TextStyle(color: Colors.orange),
+                                    style: TextStyle(color: Colors.white),
                                   )
                                 ],
                               ),
@@ -89,14 +85,14 @@ class RecipeDetail extends StatelessWidget {
                                 children: <Widget>[
                                   Icon(
                                     Icons.person,
-                                    color: Colors.orange,
+                                    color: Colors.white,
                                   ),
                                   SizedBox(
                                     width: 20,
                                   ),
                                   Text(
                                     "${result.servings} People",
-                                    style: TextStyle(color: Colors.orange),
+                                    style: TextStyle(color: Colors.white),
                                   )
                                 ],
                               ),
@@ -105,14 +101,14 @@ class RecipeDetail extends StatelessWidget {
                                 children: <Widget>[
                                   Icon(
                                     Icons.invert_colors,
-                                    color: Colors.orange,
+                                    color: Colors.white,
                                   ),
                                   SizedBox(
                                     width: 20,
                                   ),
                                   Text(
                                     "${result.weightWatcherSmartPoints} Calories",
-                                    style: TextStyle(color: Colors.orange),
+                                    style: TextStyle(color: Colors.white),
                                   )
                                 ],
                               )
@@ -122,7 +118,11 @@ class RecipeDetail extends StatelessWidget {
                     Expanded(
                       child: Container(
                         height: 200,
-                        child: Image(image: NetworkImage(result.image)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                bottomLeft: Radius.circular(16)),
+                            child: Image(image: NetworkImage(result.image))),
                       ),
                     )
                   ],
@@ -159,25 +159,6 @@ class RecipeDetail extends StatelessWidget {
                       ]),
                 ),
               ),
-              // Container(
-              //   height: 400,
-              //   width: MediaQuery.of(context).size.width,
-              //   padding: EdgeInsets.all(20),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: result.winePairing.productMatches.map((wine) {
-              //       return Container(
-              //           child: Column(
-              //         children: [
-              //           Text(wine.description),
-              //           Image(
-              //             image: NetworkImage(wine.imageUrl),
-              //           )
-              //         ],
-              //       ));
-              //     }).toList(),
-              //   ),
-              // )
             ],
           ),
         ),
