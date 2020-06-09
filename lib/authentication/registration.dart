@@ -1,5 +1,8 @@
 import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitme_diets/api/userAuthentication/auth.dart';
+import 'package:fitme_diets/models/userModel.dart';
 import 'package:fitme_diets/widgets/globalWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -11,6 +14,8 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  final TextEditingController _passwording = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
   //Placeholders (TextField)
   String _email, _password1, _firstName, _lastName, _password2, _phone;
   double _opacity = 0;
@@ -24,6 +29,8 @@ class _RegistrationState extends State<Registration> {
   final _formKey = GlobalKey<FormState>();
   //Placeholder (Obscurity)
   bool _isPasswordVisible = true;
+
+  AuthService _authService = new AuthService();
 
   //Handle Text Field Inputs
   void _handleFirstNameInput(String value) {
@@ -55,6 +62,8 @@ class _RegistrationState extends State<Registration> {
     _password2 = value.trim();
     print(_password2);
   }
+
+  dynamic authResponse;
 
   Widget _firstNameTF() {
     return Container(
@@ -222,6 +231,7 @@ class _RegistrationState extends State<Registration> {
               }
               return null;
             },
+            controller: _passwording,
             obscureText: _isPasswordVisible,
             focusNode: focusPassword1,
             onSaved: _handlePassword1Input,
@@ -254,18 +264,15 @@ class _RegistrationState extends State<Registration> {
           onFieldSubmitted: (value) {
             FocusScope.of(context).unfocus();
           },
+          controller: _confirmPass,
           autofocus: false,
           validator: (value) {
-            //Check if password exists
-            if (value.isEmpty) {
-              return 'Please provide a password';
-            }
-            //Check if password is more that 7 characters
-            if (value.length < 7) {
-              return 'Password is too short';
+            if (value != _passwording.text) {
+                return 'Passwords do not match';
             }
             return null;
           },
+          autovalidate: true,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
           obscureText: true,
@@ -282,6 +289,25 @@ class _RegistrationState extends State<Registration> {
         ));
   }
 
+  //Authentication Service
+  Future<bool> serverCall(User user) async {
+    authResponse = await _authService.createUserEmailPass(user);
+    print('This is the result: $authResponse');
+
+    if (authResponse == 'Your password is weak. Please choose another') {
+      return false;
+    } else if (authResponse == "The email format entered is invalid") {
+      return false;
+    } else if (authResponse == "An account with the same email exists") {
+      return false;
+    } else if (authResponse == null) {
+      authResponse = "Please check your internet connection";
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   void _signUpBtnPressed() {
     //Access form
     final FormState form = _formKey.currentState;
@@ -291,11 +317,23 @@ class _RegistrationState extends State<Registration> {
       setState(() {
         _opacity = 1;
       });
-      //Dismiss dialog after two seconds
-      Timer(Duration(seconds: 2), () {
+      //Perform User Registration
+      User user = new User(
+        email: _email,
+        firstName: _firstName,
+        lastName: _lastName,
+        password: _password1,
+        phone: _phone,
+        registerDate: Timestamp.now()
+      );
+      serverCall(user).then((value) {
         setState(() {
           _opacity = 0;
         });
+        if (value) {
+          FirebaseUser registeredUser = authResponse;
+          print(registeredUser.uid);
+        }
       });
     }
   }
@@ -388,6 +426,8 @@ class _RegistrationState extends State<Registration> {
     focuslastName.dispose();
     focusPassword1.dispose();
     focusPassword2.dispose();
+    _passwording.dispose();
+    _confirmPass.dispose();
   }
 
   @override

@@ -7,7 +7,10 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  Widget menuitem(String text, IconData icon,) {
+  Widget menuitem(
+    String text,
+    IconData icon,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -36,9 +39,9 @@ class _UserProfileState extends State<UserProfile> {
         color: Colors.grey[300],
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only( top: 60),
+        padding: EdgeInsets.only(top: 60),
         child: SingleChildScrollView(
-                  child: Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               CircleAvatar(
@@ -64,34 +67,33 @@ class _UserProfileState extends State<UserProfile> {
                     SizedBox(width: 10),
                     Text(
                       "Advanced",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 30),
               Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(25),
-                          topLeft: Radius.circular(25)),
-                      color: Colors.white),
-                  child: Column(
-                    children: <Widget>[
-                      menuitem("Become a Pro Member", Icons.local_library),
-                      menuitem("Become a Pro Member", Icons.local_library),
-                      menuitem("Become a Pro Member", Icons.local_library),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Divider(
-                          color: Colors.black
-                        ),
-                      ),
-                      menuitem("Become a Pro Member", Icons.local_library),
-                      menuitem("Become a Pro Member", Icons.local_library),
-                    ],
-                  ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(25),
+                        topLeft: Radius.circular(25)),
+                    color: Colors.white),
+                child: Column(
+                  children: <Widget>[
+                    menuitem("Become a Pro Member", Icons.local_library),
+                    menuitem("Become a Pro Member", Icons.local_library),
+                    menuitem("Become a Pro Member", Icons.local_library),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(color: Colors.black),
+                    ),
+                    menuitem("Become a Pro Member", Icons.local_library),
+                    menuitem("Become a Pro Member", Icons.local_library),
+                  ],
                 ),
+              ),
             ],
           ),
         ),

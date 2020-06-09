@@ -1,7 +1,8 @@
 //import 'package:fitme_diets/authentication/login.dart';
+import 'package:fitme_diets/authentication/login.dart';
 import 'package:fitme_diets/authentication/registration.dart';
-import 'package:fitme_diets/screens/base.dart';
-import 'package:fitme_diets/screens/home.dart';
+//import 'package:fitme_diets/screens/base.dart';
+//import 'package:fitme_diets/screens/home.dart';
 //import 'package:fitme_diets/screens/base.dart';
 import 'package:fitme_diets/screens/recipeDetail.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
       },
       title: 'Lishe',
       debugShowCheckedModeBanner: false,
-      home: Base(),
+      home: Login(),
     );
   }
 }

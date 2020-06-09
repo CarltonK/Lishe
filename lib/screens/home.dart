@@ -15,6 +15,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   bool isLiked = false;
   TabController _controller;
   PageController _pageController;
+  Future _dataReturned;
 
   Widget _singleTabWidget(DietModel model) {
     return Padding(
@@ -106,9 +107,12 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                   Navigator.of(context).pushNamed('/detail', arguments: result),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(
-                  '${result.image}',
-                  fit: BoxFit.fitHeight,
+                child: Hero(
+                  tag: result.id,
+                  child: Image.network(
+                    '${result.image}',
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
             ),
@@ -123,6 +127,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
     _controller = new TabController(initialIndex: 0, length: 6, vsync: this);
     _pageController = new PageController(viewportFraction: 0.75);
+    _dataReturned = _dataResponse();
   }
 
   API _api = new API();
@@ -179,14 +184,21 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
               Container(
                 height: 300,
                 child: FutureBuilder<ServerResponse>(
-                  future: _dataResponse(),
+                  future: _dataReturned,
                   builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return PageView(
-                        controller: _pageController,
-                        children: snapshot.data.results
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        return PageView(
+                          controller: _pageController,
+                          children: snapshot.data.results
                             .map((map) => _singleRecipeWidget(map))
                             .toList(),
+                        );
+                      }
+                      return Center(
+                        child: Text(
+                          'Sorry, Timed Out'
+                        )
                       );
                     }
                     return SpinKitDoubleBounce(

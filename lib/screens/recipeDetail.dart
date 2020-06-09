@@ -29,12 +29,12 @@ class RecipeDetail extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.red,
         elevation: 0,
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.search, color: Colors.white), onPressed: null),
-          IconButton(
-              icon: Icon(Icons.menu, color: Colors.white), onPressed: null)
-        ],
+        // actions: <Widget>[
+        //   IconButton(
+        //       icon: Icon(Icons.search, color: Colors.white), onPressed: null),
+        //   IconButton(
+        //       icon: Icon(Icons.menu, color: Colors.white), onPressed: null)
+        // ],
       ),
       body: Container(
         padding: EdgeInsets.only(top: 20),
@@ -115,15 +115,22 @@ class RecipeDetail extends StatelessWidget {
                             ],
                           )),
                     ),
-                    Expanded(
-                      child: Container(
-                        height: 200,
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(16),
-                                bottomLeft: Radius.circular(16)),
-                            child: Image(image: NetworkImage(result.image))),
+                    Container(
+                      height: 200,
+                      margin: EdgeInsets.only(left: 5),
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              bottomLeft: Radius.circular(16))
                       ),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(16),
+                              bottomLeft: Radius.circular(16)),
+                          child: Hero(
+                            tag: result.id,
+                            child: Image(image: NetworkImage(result.image)))),
                     )
                   ],
                 ),
